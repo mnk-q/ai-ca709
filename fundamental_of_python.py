@@ -5,6 +5,7 @@ def email_parser(email):
     '''
     name, host = email.split('@')
     first_name, last_name = name.split('.')
+    host, domain_name = host.split('.')
     return first_name, last_name, host
 
 
@@ -12,6 +13,8 @@ def integer_to_roman(num:int) -> str:
     '''
     Given a Positive Intger, return the Roman numeral representation
     '''
+    if not (0 < num < 4000):
+        return 'Invalid Input'
     roman_numeral_map = (('M',  1000),
                          ('CM', 900),
                          ('D',  500),
@@ -59,8 +62,8 @@ def integer_to_roman_runner():
     print(f"Roman Representation of {num} is {integer_to_roman(num)}")
 
 def bmi_runner():
-    height = int(input('Enter your height: '))
-    weight = int(input('Enter your weight: '))
+    height = int(input('Enter your height(cm): '))
+    weight = int(input('Enter your weight(kg): '))
     print("You are ",bmi(height, weight))
 
 def main():
@@ -85,6 +88,6 @@ def main():
         else:
             print('Invalid Choice')
 
-
-
-# a Major thanks to Github and Github Copilot for the help in creating this program.
+if __name__ == "__main__":
+    main()
+# a Major thanks to Github and Github Copilot for the help in this program.
