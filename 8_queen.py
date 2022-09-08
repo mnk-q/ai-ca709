@@ -2,11 +2,8 @@
 
 import random
 
-def random_queen():
-    return random.randint(0, 7)
-
 def random_board():
-    return [random_queen() for i in range(8)]
+    return [random.randint(0, 7) for i in range(8)]
 
 def is_safe(board):
     for i in range(8):
@@ -27,10 +24,6 @@ def print_board(board):
         print()
 
 def heuristic(board):
-    '''
-    Calculate Heuristic of the current board.
-    It is number of pairs of queens that are attacking each other.
-    '''
     h = 0
     for i in range(8):
         for j in range(i+1, 8):
@@ -39,18 +32,6 @@ def heuristic(board):
             if abs(i-j) == abs(board[i]-board[j]):
                 h += 1
     return h
-    
-def backtracking(board, col):
-    if col >= 8:
-        return True
-    print(heuristic(board))
-    for i in range(8):
-        board[col] = i
-        if is_safe(board):
-            if backtracking(board, col+1):
-                return True
-    return False    
-
 
 def generate_neighbours_with_heuristic(board):
     neighbours_heuristics = []
@@ -68,10 +49,8 @@ def main():
     
     while not is_safe(board):
         print(heuristic(board))
-        print("Generating Neighbours")
         neighbours = generate_neighbours_with_heuristic(board)
-        print("Neighbours Generated")
-        print("Choosing Neighbour")
+        print("Choosing Neighbour with lower heuristics")
         if neighbours[0][1] >= heuristic(board):
             print("Got stuck in Shoulder, Generating Board")
             board = random_board()
@@ -80,8 +59,6 @@ def main():
     if is_safe(board):
         print("Solution Found")
         print_board(board)
-    else:
-        print("No Solution Found")
-        print("Stuck in Local Maxima")
+    
 if __name__ == '__main__':
     main()
